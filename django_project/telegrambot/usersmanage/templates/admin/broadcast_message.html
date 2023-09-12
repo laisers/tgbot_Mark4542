@@ -1,0 +1,57 @@
+{% extends "admin/base_site.html" %}
+
+{% block extrahead %}
+<style>
+    .center-text {
+        text-align: center;
+    }
+    .main-container {
+        display: flex;
+        justify-content: space-around;
+        height: 60vh; /* Уменьшаем высоту для поднятия блоков выше */
+        align-items: center;
+    }
+    .box {
+        width: 60%;
+        border: 1px solid #ccc;
+        padding: 30px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    textarea {
+        width: 100%; /* Увеличим ширину */
+        height: 200px; /* Увеличим высоту */
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="main-container">
+    <!-- Рассылка -->
+    <div class="box">
+        <h2 class="center-text">Рассылка</h2>
+        <p class="center-text"><strong>Выбрано пользователей:</strong> {{ users_count }}</p>
+        <hr style="width: 50%;">
+        <form action="" method="post" style="text-align: center;">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="hidden" name="action" value="broadcast" />
+            <input type="submit" name="apply_broadcast" value="Отправить" style="margin-top: 10px;" />
+        </form>
+    </div>
+
+    <!-- Уведомление -->
+    <div class="box">
+        <h2 class="center-text">Уведомление</h2>
+        <p class="center-text"><strong>Выбрано пользователей:</strong> {{ users_count }}</p>
+
+        <hr style="width: 50%;">
+        <form action="" method="post" style="text-align: center;">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="hidden" name="action" value="broadcast" />
+            <p class="center-text" style="margin-top: 0px;">default - Стандартный текст. %link% - Ссылка страницы</p>
+            <input type="submit" name="apply_notification" value="Отправить" style="margin-top: 10px;" />
+        </form>
+    </div>
+</div>
+{% endblock %}
